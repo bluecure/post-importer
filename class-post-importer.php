@@ -21,17 +21,11 @@ if ( ! class_exists( 'Post_Importer' ) ) {
 
         /* Variables */
         private $errors;
-        private $wpdb;
 
         /* Construct */
         function __construct() {
-
             // Create error object
             $this->errors = new WP_Error();
-            // Get global wpbd
-            global $wpdb;
-            $this->wpdb = $wpdb;
-
         }
         
         /**
@@ -75,7 +69,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
          * @access public
          * @param  array   $posts
          * @param  boolean $update
-         * @return array   $post_ids
+         * @return array   $post_ids (with errors)
          */
         public function add_posts( $posts, $update = true ) {
 
@@ -83,6 +77,10 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             // Loop through and add each post
             foreach( $posts as $post ) {
                 $post_ids[] = self::add_post( $post, $update );
+            }
+            // Add any errors to returned array
+            if ( $this->errors->get_error_message() ) {
+                $post_ids['errors'] = $this->errors->get_error_message();
             }
             // Return post ids array
             return $post_ids;
@@ -100,6 +98,16 @@ if ( ! class_exists( 'Post_Importer' ) ) {
          * @return int     $post_id
          */
         public function add_post( $post, $update = true ) {
+
+            // Check if post exists
+            $existing_post = get_page_by_title( $post['post_title'], 'OBJECT', $post['post_type'] );
+
+            // Return if post already exists and update is false else set ID
+            if ( $update === false && $existing_post !== NULL ) {
+                return $this->errors->add( 'Post', 'Post: ' . $existing_post->ID . '  already exists, set update to true to update existing posts.' );
+            } else {
+                $post['ID'] = $existing_post->ID;
+            }
         
             // Setup default options array
             $post = self::parse_args_r( $post, self::post_defaults() );
@@ -132,26 +140,24 @@ if ( ! class_exists( 'Post_Importer' ) ) {
                 $post['tax_input'] = $tax_input;
             }
 
-            // Check if image exists
-            $existing_post = get_page_by_title( $post['post_title'], 'OBJECT', $post['post_type'] );
-            
-            // Return existing post id, update or insert post
-            if ( ! empty( $existing_post ) && $update === false ) {
-                return $existing_post->ID;
-            } elseif ( ! empty( $existing_post ) ) {
-                $post['ID'] = $existing_post->ID;
-                $post_id = wp_update_post( $post );
-            } else {
+            // Add or update the post and taxonomies
+            if ( empty( $post['ID'] ) ) {
                 $post_id = wp_insert_post( $post );
+            } else {
+                $post_id = wp_update_post( $post );
             }
+
+            // If insert failed return error
+            if ( $post_id === false ) 
+                return $this->errors->add( 'Post', 'Error inserting post: ' . $post['post_title'] );
 
             // Add product meta data
             if ( ! empty( $meta ) )
                 self::add_meta( $post_id, $meta );
-
             // Add product images
             if ( ! empty( $images ) )
                 self::add_images( $post_id, $images );
+
             
             // Return post id
             return $post_id;

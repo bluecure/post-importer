@@ -7,22 +7,24 @@ A work in progress Post Importer (not properly tested or refactored).
 ```
 $post_importer = new Post_Importer();
 
-$post = [
-    'post_title'    => 'Sample post',
-    'post_content'  => 'This is sample posts content',
-    'tags_input'    => ['New', 'Clean'],
-    'post_category' => ['News', 'Blog'],
-    'meta'          => [
-        'sample_meta_one' => 'Sample meta 1 value',
-        'sample_meta_two' => 'Sample meta 2 value'
-    ],
-    'images'        => [
-        'http://mimosa.bsohosting.com.au/wp-content/uploads/2013/12/brook-292-05.jpg',
-        'http://mimosa.bsohosting.com.au/wp-content/uploads/2013/11/investments.png'
+$posts = [
+    'posts' => [
+        'post_title'    => 'Sample post',
+        'post_content'  => 'This is sample posts content',
+        'tags_input'    => ['New', 'Clean'],
+        'post_category' => ['News', 'Blog'],
+        'meta'          => [
+            'sample_meta_one' => 'Sample meta 1 value',
+            'sample_meta_two' => 'Sample meta 2 value'
+        ],
+        'images'        => [
+            'http://myimage.com/image-001.jpg',
+            'http://myimage.com/image-002.jpg'
+        ]
     ]
 ];
 
-$post_id = $post_importer->add_post( $post );
+$post_id = $post_importer->add_posts( $posts );
 
 ```
 ####Sample Usage for custom post type:
@@ -30,22 +32,24 @@ $post_id = $post_importer->add_post( $post );
 ```
 $post_importer = new Post_Importer();
 
-$post = [
-    'post_title'   => 'Sample post',
-    'post_content' => 'This is sample posts content',
-    'post_type'    => 'book',
-    'meta'         => [
-        'sample_meta_one' => 'Sample meta 1 value',
-        'sample_meta_two' => 'Sample meta 2 value'
-    ],
-    'images'       => [
-        'http://mimosa.bsohosting.com.au/wp-content/uploads/2013/12/brook-292-05.jpg',
-        'http://mimosa.bsohosting.com.au/wp-content/uploads/2013/11/investments.png'
-    ],
-    'tax_input'    => [
-        'genre' => [ 'Rock', 'Classic' ]
+$posts = [
+    'posts' => [
+        'post_title'   => 'Sample post',
+        'post_content' => 'This is sample posts content',
+        'post_type'    => 'book',
+        'meta'         => [
+            'sample_meta_one' => 'Sample meta 1 value',
+            'sample_meta_two' => 'Sample meta 2 value'
+        ],
+        'images'       => [
+            'http://myimage.com/image-001.jpg',
+            'http://myimage.com/image-002.jpg'
+        ],
+        'tax_input'    => [
+            'genre' => [ 'Rock', 'Classic' ]
+        ]
     ]
 ];
 
-$post_id = $post_importer->add_post( $post );
+$post_id = $post_importer->add_posts( $posts );
 ```
