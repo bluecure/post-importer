@@ -1,9 +1,8 @@
 <?php
-
 /**
  * WordPress Post Importer
  *
- * Class to import posts with images and meta data
+ * Class to import WordPress posts with images and meta data
  *
  * @class       Post_Importer
  * @version     1.0.0
@@ -362,6 +361,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
          * @return array $r
          */
         private function parse_args_r( &$a, $b ) {
+            
             $a = (array) $a;
             $b = (array) $b;
             $r = $b;
@@ -375,6 +375,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             }
 
             return $r;
+            
         }
         
 

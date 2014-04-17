@@ -1,6 +1,6 @@
 #Post Importer
 
-A work in progress Post Importer (not properly tested or refactored).
+A work in progress Post Importer (not properly tested).
 
 ####Sample Usage for default post type:
 
@@ -8,7 +8,7 @@ A work in progress Post Importer (not properly tested or refactored).
 $post_importer = new Post_Importer();
 
 $posts = [
-    'posts' => [
+    [
         'post_title'    => 'Sample post',
         'post_content'  => 'This is sample posts content',
         'tags_input'    => ['New', 'Clean'],
@@ -33,7 +33,7 @@ $post_id = $post_importer->add_posts( $posts );
 $post_importer = new Post_Importer();
 
 $posts = [
-    'posts' => [
+    [
         'post_title'   => 'Sample post',
         'post_content' => 'This is sample posts content',
         'post_type'    => 'book',
