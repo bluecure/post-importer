@@ -8,7 +8,7 @@
  * @version     1.0.0
  * @package     class-post-importer
  * @category    Class
- * @author      David Featherston
+ * @author      David Featherston <https://github.com/bluecure/post-importer>
  *
  */
 
@@ -25,39 +25,6 @@ if ( ! class_exists( 'Post_Importer' ) ) {
         function __construct() {
             // Create error object
             $this->errors = new WP_Error();
-        }
-        
-        /**
-         * Post Defaults
-         *
-         * Setup the post default arguments
-         *
-         * @access private
-         * @return array
-         */
-        private function post_defaults() {
-
-            return [
-                'ID'                => '',
-                'post_author'       => '',
-                'post_title'        => '',
-                'post_name'         => '',
-                'post_content'      => '',
-                'post_excerpt'      => '',
-                'post_status'       => 'publish',
-                'post_type'         => 'post',
-                'post_parent'       => 0,
-                'comment_status'    => 'closed',
-                'ping_status'       => 'closed',
-                'menu_order'        => 0,
-                'page_template'     => 0,
-                'tags_input'        => [],
-                'post_category'     => [],
-                'tax_input'         => [],
-                'meta'              => [],
-                'images'            => []
-            ];
-                
         }
         
         /**
@@ -348,6 +315,39 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             // Return tax input array
             return $tax_formatted;
 
+        }
+                
+        /**
+         * Post Defaults
+         *
+         * Setup the post default arguments
+         *
+         * @access private
+         * @return array
+         */
+        private function post_defaults() {
+
+            return [
+                'ID'                => '',
+                'post_author'       => '',
+                'post_title'        => '',
+                'post_name'         => '',
+                'post_content'      => '',
+                'post_excerpt'      => '',
+                'post_status'       => 'publish',
+                'post_type'         => 'post',
+                'post_parent'       => 0,
+                'comment_status'    => 'closed',
+                'ping_status'       => 'closed',
+                'menu_order'        => 0,
+                'page_template'     => 0,
+                'tags_input'        => [],
+                'post_category'     => [],
+                'tax_input'         => [],
+                'meta'              => [],
+                'images'            => []
+            ];
+                
         }
         
         /**
