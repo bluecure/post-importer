@@ -26,7 +26,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             // Create error object
             $this->errors = new WP_Error();
         }
-        
+
         /**
          * Add Posts
          *
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             return $post_ids;
 
         }      
-          
+
         /**
          * Add Post
          *
@@ -74,32 +74,32 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             } else {
                 $post['ID'] = $existing_post->ID;
             }
-        
+
             // Setup default options array
             $post = self::parse_args_r( $post, self::post_defaults() );
-        
+
             // Set and remove tax input
             $tax_input = $post['tax_input'];
             unset( $post['tax_input'] );
-            
+
             // Set and remove categories
             $categories = $post['post_category'];
             unset( $post['post_category'] );
-            
+
             // Set and remove meta data
             $meta = $post['meta'];
             unset( $post['meta'] );
-            
+
             // Set and remove images
             $images = $post['images'];
             unset( $post['images'] );
-            
+
             // Get the category ids
             if ( ! empty( $categories ) ) {
                 $categories = self::get_categories( $categories );
                 $post['post_category'] = $categories;
             }      
-                      
+
             // Format the tax input
             if ( ! empty( $tax_input ) ) {
                 $tax_input = self::format_tax_input( $tax_input );
@@ -120,16 +120,16 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             // Add product meta data
             if ( ! empty( $meta ) )
                 self::add_meta( $post_id, $meta );
+                
             // Add product images
             if ( ! empty( $images ) )
                 self::add_images( $post_id, $images );
 
-            
             // Return post id
             return $post_id;
 
         }
-        
+
          /**
          * Add Meta
          *
@@ -227,9 +227,8 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             $image_id = media_handle_sideload( $file_array, $post_id );
 
             // If error storing permanently, unlink
-            if ( is_wp_error( $image_id ) ) {
+            if ( is_wp_error( $image_id ) )
                 @unlink( $file_array['tmp_name'] ) ;
-            }
 
             // Return image id or false
             if ( ! is_wp_error( $image_id ) ) {
@@ -239,7 +238,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             }
 
         }
-        
+
         /**
          * Get Categories
          *
@@ -254,7 +253,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             // Convert to array if string
             if ( ! is_array( $categories ) )
                 $categories = explode( ',', $categories );
-            
+
             $cat_ids = [];
 
             // Loop through tax inputs
@@ -272,7 +271,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             return $cat_ids;
 
         }   
-             
+
         /**
          * Format Tax Input
          *
@@ -316,7 +315,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             return $tax_formatted;
 
         }
-                
+
         /**
          * Post Defaults
          *
@@ -347,9 +346,9 @@ if ( ! class_exists( 'Post_Importer' ) ) {
                 'meta'              => [],
                 'images'            => []
             ];
-                
+
         }
-        
+
         /**
          * Parse Args Recursive
          *
@@ -361,7 +360,7 @@ if ( ! class_exists( 'Post_Importer' ) ) {
          * @return array $r
          */
         private function parse_args_r( &$a, $b ) {
-            
+
             $a = (array) $a;
             $b = (array) $b;
             $r = $b;
@@ -375,9 +374,9 @@ if ( ! class_exists( 'Post_Importer' ) ) {
             }
 
             return $r;
-            
+
         }
-        
+
 
     }
 }

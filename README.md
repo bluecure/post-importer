@@ -11,7 +11,7 @@ $posts = [
     [
         'post_title'    => 'Sample post',
         'post_content'  => 'This is sample posts content',
-        'tags_input'    => ['New', 'Clean'],
+        'tax_input'    => ['New', 'Clean'],
         'post_category' => ['News', 'Blog'],
         'meta'          => [
             'sample_meta_one' => 'Sample meta 1 value',
