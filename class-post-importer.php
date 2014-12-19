@@ -8,7 +8,7 @@
  * @version     1.0.0
  * @package     class-post-importer
  * @category    Class
- * @author      David Featherston <https://github.com/bluecure/post-importer>
+ * @author      David Featherston <https://github.com/lambry/post-importer>
  *
  */
 
